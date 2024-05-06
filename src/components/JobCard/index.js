@@ -18,6 +18,7 @@ const JobCard = ({ each }) => {
     boxShadow: 24,
     p: 4,
   };
+
   return (
     <>
       <Card
