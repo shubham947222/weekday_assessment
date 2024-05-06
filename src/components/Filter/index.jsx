@@ -1,90 +1,94 @@
-import React from "react";
-import { useTheme } from "@mui/material/styles";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Chip from "@mui/material/Chip";
+
 import SelectComponent from "../Select";
 import { Input } from "@mui/material";
-import MultiSelectChip from "../Select/test";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const names = ["Frontend", "Backend", "Devops", "Tester"];
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
-function Filters() {
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+const roles = ["frontend", "backend", "ios", "android", "tech lead"];
+const location = ["remote", "hybride", "on-site"];
+const minExp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const NumberOfEmployees = [
+  "1-10",
+  "11-20",
+  "21-50",
+  "51-100",
+  "101-200",
+  "201-500",
+  "500+",
+];
+const minJdSalary = [0, 10, 20, 30, 40, 50, 60, 70];
+function Filters({
+  jobList,
+  setJobList,
+  page,
+  fetchMoreData,
+  filterName,
+  setfilterName,
+}) {
   return (
     <div>
-      <div>
-        <MultiSelectChip />
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-chip-label">Role</InputLabel>
-          <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            multiple
-            value={personName}
-            onChange={handleChange}
-            input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </Box>
-            )}
-            MenuProps={MenuProps}
-          >
-            {names.map((name) => (
-              <MenuItem
-                key={name}
-                value={name}
-                style={getStyles(name, personName, theme)}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <SelectComponent label="Number Of Employees" names={names} />
-        <SelectComponent label="Experience" names={names} />
-        <SelectComponent label="Remote" names={names} />
-        <SelectComponent label="Minimum Base Pay Salary" names={names} />
-        <Input size="lg" variant="outlined" placeholder="Search Company name" />
-      </div>
+      <Box sx={{ display: "flex", flexWrap: "wrap", my: 2 }}>
+        {/* <MultiSelectChip /> */}
+        <SelectComponent
+          label="Roles"
+          jobList={jobList}
+          setJobList={setJobList}
+          names={roles}
+          page={page}
+          fetchMoreData={fetchMoreData}
+          setfilterName={setfilterName}
+          filterName={filterName}
+        />
+        <SelectComponent
+          label="Number Of Employees"
+          jobList={jobList}
+          setJobList={setJobList}
+          names={NumberOfEmployees}
+          page={page}
+          fetchMoreData={fetchMoreData}
+          setfilterName={setfilterName}
+          filterName={filterName}
+        />
+        <SelectComponent
+          label="Experience"
+          jobList={jobList}
+          setJobList={setJobList}
+          names={minExp}
+          page={page}
+          fetchMoreData={fetchMoreData}
+          setfilterName={setfilterName}
+          filterName={filterName}
+        />
+        <SelectComponent
+          label="Remote"
+          jobList={jobList}
+          setJobList={setJobList}
+          names={location}
+          page={page}
+          fetchMoreData={fetchMoreData}
+          setfilterName={setfilterName}
+          filterName={filterName}
+        />
+        <SelectComponent
+          label="Min Base Pay Salary"
+          jobList={jobList}
+          setJobList={setJobList}
+          names={minJdSalary}
+          page={page}
+          fetchMoreData={fetchMoreData}
+          setfilterName={setfilterName}
+          filterName={filterName}
+        />
+        {/* <Input
+          size="lg"
+          variant="outlined"
+          jobList={jobList}
+          setJobList={setJobList}
+          placeholder="Search Company name"
+          page={page}
+          fetchMoreData={fetchMoreData}
+        /> */}
+      </Box>
     </div>
   );
 }

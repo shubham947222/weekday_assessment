@@ -21,13 +21,13 @@ const JobCard = ({ each }) => {
   return (
     <>
       <Card
-        className=""
+        className="h-100"
         sx={{
           borderRadius: 5,
           p: 2.2,
         }}
       >
-        <CardContent>
+        <CardContent className="h-100">
           <Box
             sx={{
               boxShadow: theme.shadows[2],
@@ -70,7 +70,10 @@ const JobCard = ({ each }) => {
           </Box>
           <Box sx={{ mb: 1 }}>
             <Typography variant="caption" color="text.secondary">
-              <b>Estimated Salary: 10 - 20 LPA ✅</b>
+              <b>
+                Estimated Salary: {each?.minJdSalary} - {each?.maxJdSalary} LPA
+                ✅
+              </b>
             </Typography>
           </Box>
           <Box sx={{ fontWeight: 600 }}>About Company:</Box>
@@ -79,32 +82,30 @@ const JobCard = ({ each }) => {
             sx={{
               height: 200,
               overflowY: "hidden",
-              position: "relative", // Make the box position relative for absolute positioning
+              position: "relative",
             }}
           >
             {each?.jobDetailsFromCompany}
-            {/* Overlay with white blurry effect */}
             <div
               style={{
                 position: "absolute",
                 bottom: 0,
                 left: 0,
                 width: "100%",
-                height: "100%", // Set height to 100% to cover the entire box
+                height: "100%",
                 backgroundImage:
-                  "linear-gradient(rgb(255 255 255 / 0%), rgb(255 255 255 / 100%) 80%)", // Adjust the gradient to fade out
-                zIndex: 1, // Ensure the gradient is above the content
-                pointerEvents: "none", // Prevent interactions with the gradient
+                  "linear-gradient(rgb(255 255 255 / 0%), rgb(255 255 255 / 100%) 80%)",
+                zIndex: 1,
+                pointerEvents: "none",
               }}
             />
-            {/* Text "Join" */}
             <div
               style={{
                 position: "absolute",
                 bottom: 0,
                 left: 0,
                 width: "100%",
-                height: "20%", // Adjust the height of the text area
+                height: "20%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -124,8 +125,12 @@ const JobCard = ({ each }) => {
             </div>
           </Box>
 
-          <Box>Minimum Experience</Box>
-          <Box>{each?.minExp} years</Box>
+          {each?.minExp && (
+            <>
+              <Box>Minimum Experience</Box>
+              <Box>{each?.minExp} years</Box>
+            </>
+          )}
         </CardContent>
         <Button type="primary" name="Easy Apply">
           <b>⚡Easy Apply</b>

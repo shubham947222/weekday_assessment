@@ -5,33 +5,8 @@ import React, { useEffect, useState } from "react";
 
 import CardSkeleton from "../Skeletons/CardSkeleton";
 import JobCard from "../JobCard";
-const JobList = () => {
-  const [jobList, setJobList] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(null);
-  useEffect(() => {
-    fetchMoreData(1);
-  }, []);
 
-  const fetchMoreData = (pageNo = page) => {
-    if (pageNo != 1 && jobList.length >= totalCount) {
-      setHasMore(false);
-      return;
-    }
-
-    axios
-      .post("https://api.weekday.technology/adhoc/getSampleJdJSON", {
-        limit: 10,
-        offset: pageNo,
-      })
-      .then((response) => {
-        console.log(response?.data, "red");
-        setJobList([...jobList, ...response.data?.jdList]);
-        setTotalCount(response.data?.totalCount);
-        setPage(page + 1);
-      });
-  };
+const JobList = ({ jobList, hasMore, page, fetchMoreData, filterName }) => {
   return (
     <Box className="mx-3" sx={{}}>
       {jobList?.length > 0 ? (
